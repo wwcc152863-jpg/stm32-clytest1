@@ -12,7 +12,7 @@
   * This software component is licensed by ST under BSD 3-Clause license,
   * the "License"; You may not use this file except in compliance with the
   * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * opensource.org/licenses/BSD-3-Clause
   *
   ******************************************************************************
   */
@@ -41,7 +41,7 @@
 #define WATER_PRESENT           90
 #define WATER_ADC_DRY           3850
 #define WATER_ADC_WET           4095
-#define LIGHT_THRESHOLD         50
+#define LIGHT_THRESHOLD         20    // ????????? 20
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -96,7 +96,7 @@ void ADC_GetValue(void)
 	uint8_t i;
 	ADC_ChannelConfTypeDef sConfig = {0};
 	sConfig.Rank = ADC_REGULAR_RANK_1;
-	sConfig.SamplingTime = ADC_SAMPLETIME_239CYCLE_5;
+	sConfig.SamplingTime = ADC_SAMPLETIME_239CYCLES_5; // ??????????? CYCLES
 
 	for (i = 0; i < 10; i++)
 	{
@@ -134,8 +134,17 @@ void ADC_GetValue(void)
 
 void AutoCtrl(void)
 {
-	(water_level >= WATER_PRESENT) ? Buzzer_Set_State(0) : Buzzer_Set_State(1);
-	(light < LIGHT_THRESHOLD) ? LED_Set_State(1) : LED_Set_State(0);
+	// ????LED??????????
+	if (light < LIGHT_THRESHOLD)
+	{
+		Buzzer_Set_State(1); // ????20%,????
+		LED_Set_State(1);    // ????20%,LED?
+	}
+	else
+	{
+		Buzzer_Set_State(0); // ???????20%,?????
+		LED_Set_State(0);    // ???????20%,LED?
+	}
 }
 
 void Page(void)
@@ -285,16 +294,12 @@ void Error_Handler(void)
 #ifdef  USE_FULL_ASSERT
 /**
   * @brief  Reports the name of the source file and the source line number
-  *   where the assert_param error has occurred.
+  * where the assert_param error has occurred.
   * @param  file: pointer to the source file name
   * @param  line: assert_param error line source number
   * @retval None
   */
 void assert_failed(uint8_t *file, uint32_t line)
 {
-  /* USER CODE BEGIN 6 */
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
-  /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
