@@ -82,7 +82,8 @@ void LED_Set_State(uint8_t x)
 
 void Buzzer_Set_State(uint8_t x)
 {
-	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, x ? GPIO_PIN_RESET : GPIO_PIN_SET);
+	// ???????:????? x ?,?????????(????)
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_SET);
 }
 
 float temp_value;
