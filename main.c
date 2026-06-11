@@ -96,7 +96,7 @@ void ADC_GetValue(void)
 	uint8_t i;
 	ADC_ChannelConfTypeDef sConfig = {0};
 	sConfig.Rank = ADC_REGULAR_RANK_1;
-	sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+	sConfig.SamplingTime = ADC_SAMPLETIME_239CYCLE_5;
 
 	for (i = 0; i < 10; i++)
 	{
